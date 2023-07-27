@@ -51,13 +51,10 @@ public class ApiTestSets: IClassFixture<WebApplicationFactory<Program>>
     var response = await _client.PostAsync("/api/developers", stringContent);
 
     // Assert
-    Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-    
     var content = await response.Content.ReadAsStringAsync();
     var developer = JsonConvert.DeserializeObject<Developer>(content);
     
-    // Add your additional checks here. For example, you might check that the
-    // developer returned in the response has the same properties as the one you sent:
+    Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     Assert.Equal(newDeveloper.Name, developer.Name);
     Assert.Equal(newDeveloper.Email, developer.Email);
     }
